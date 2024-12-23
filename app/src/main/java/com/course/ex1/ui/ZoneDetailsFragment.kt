@@ -1,5 +1,6 @@
 package com.course.ex1.ui
 
+import android.annotation.SuppressLint
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -21,23 +22,26 @@ class ZoneDetailsFragment : Fragment() {
 
     private val viewModel: ZoneDetailsViewModel by viewModels()
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentZoneDetailsBinding.inflate(inflater,container,false)
 
-
-
         val zoneId = arguments?.getLong("zoneId")?: throw IllegalArgumentException("Zone ID missing")
 
         viewModel.loadZoneDetails(zoneId)
 
 
+
         viewModel.zone.observe(viewLifecycleOwner){zone->
+            val coordinates =  "${zone.minLatitude}° : ${zone.maxLatitude}°, ${zone.minLongitude}° : ${zone.maxLongitude}°"
+
             binding.zoneName.text = zone.name
-            binding.zoneColor.setBackgroundColor(12343)
-            binding.zoneDetails.text = zone.phone
+            binding.zonePhone.text = zone.phone
+            binding.coordinatesValue.text = coordinates
+            binding.zoneCard.setBackgroundColor(zone.level)
         }
 
         return binding.root

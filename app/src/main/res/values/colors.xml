@@ -11,4 +11,5 @@
     <color name="low_level">#00FF00</color> <!-- Зелёный -->
     <color name="medium_level">#FFFF00</color> <!-- Жёлтый -->
     <color name="high_level">#FF0000</color> <!-- Красный -->
+    <color name="gray">#3B4061</color>
 </resources>

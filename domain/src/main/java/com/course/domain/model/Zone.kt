@@ -11,5 +11,5 @@ data class Zone(
     val maxLatitude: Double,
     val minLongitude: Double,
     val maxLongitude: Double,
-    val level: Level,
+    val level: Int,
 )

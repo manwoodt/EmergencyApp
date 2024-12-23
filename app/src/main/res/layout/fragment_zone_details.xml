@@ -1,27 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:gravity="center"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/zone_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <View
-        android:id="@+id/zone_color"
+    <LinearLayout
+        android:id="@+id/zone_card"
         android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:layout_marginVertical="8dp" />
-
-    <TextView
-        android:id="@+id/zone_details"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp" />
+        android:layout_margin="8dp"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/zone_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text= "@string/emergency_phone_number"
+            android:textColor="@color/gray"
+            />
+
+
+        <TextView
+            android:id="@+id/zone_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:id="@+id/zone_coordinates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="@string/coordinates"
+            android:textColor="@color/gray"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:id="@+id/coordinatesValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+
+
+    </LinearLayout>
 </LinearLayout>
