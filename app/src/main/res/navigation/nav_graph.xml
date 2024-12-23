@@ -7,7 +7,23 @@
 
     <fragment
         android:id="@+id/zonesFragment"
-        android:name="com.course.ex1.ZonesFragment"
+        android:name="com.course.ex1.ui.ZonesFragment"
         android:label="fragment_zones"
-        tools:layout="@layout/fragment_zones" />
+        tools:layout="@layout/fragment_zones" >
+        <action
+            android:id="@+id/action_zonesFragment_to_zoneDetailsFragment"
+            app:destination="@id/zoneDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/zoneDetailsFragment"
+        android:name="com.course.ex1.ui.ZoneDetailsFragment"
+        android:label="ZoneDetailsFragment"
+        tools:layout="@layout/fragment_zone_details">
+        <argument
+            android:name="zoneId"
+            app:argType="long" />
+    </fragment>
+
+
 </navigation>

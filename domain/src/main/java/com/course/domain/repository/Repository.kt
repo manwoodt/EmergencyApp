@@ -5,7 +5,9 @@ import com.course.domain.model.Zone
 
 interface Repository {
 
-   suspend fun getZonesList(): List<Zone>
+    suspend fun getZonesList(): List<Zone>
+
+    suspend fun getZonesById(zoneId: Long): Zone
 
     suspend fun getIncidentsList(): List<Incident>
 

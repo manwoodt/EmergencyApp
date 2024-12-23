@@ -13,6 +13,9 @@ interface ApiService {
     @GET("zones")
     suspend fun getZonesList(): List<ZoneDto>
 
+    @GET("zones/{zoneId}")
+    suspend fun getZonesById(@Path("zoneId") zoneId: Long): ZoneDto
+
     @GET("incidents")
     suspend fun getIncidentsList(): List<IncidentDto>
 

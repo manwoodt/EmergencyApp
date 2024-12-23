@@ -1,4 +1,4 @@
-package com.course.ex1
+package com.course.ex1.ui
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.course.ex1.adapters.ZoneAdapter
 import com.course.ex1.databinding.FragmentZonesBinding
@@ -27,13 +28,22 @@ class ZonesFragment : Fragment() {
     ): View {
         _binding = FragmentZonesBinding.inflate(inflater, container, false)
 
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        setupRecyclerView()
 
         viewModel.zones.observe(viewLifecycleOwner){zones->
             adapter.setZones(zones)
         }
 
        return binding.root
+    }
+
+    private fun setupRecyclerView(){
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        adapter.onZoneClick = {zone ->
+            val action = ZonesFragmentDirections.actionZonesFragmentToZoneDetailsFragment(zone.zoneId)
+            findNavController().navigate(action)
+        }
     }
 }
