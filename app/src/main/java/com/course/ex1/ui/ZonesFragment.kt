@@ -38,8 +38,8 @@ class ZonesFragment : Fragment() {
     }
 
     private fun setupRecyclerView(){
-        binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter = adapter
 
         adapter.onZoneClick = {zone ->
             val action = ZonesFragmentDirections.actionZonesFragmentToZoneDetailsFragment(zone.zoneId)

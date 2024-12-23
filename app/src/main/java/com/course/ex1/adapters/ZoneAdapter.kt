@@ -1,15 +1,17 @@
 package com.course.ex1.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.View
 import android.widget.TextView
-import androidx.compose.ui.graphics.Color
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.course.domain.model.Zone
+import com.course.domain.model.enums.Level
 import com.course.ex1.R
 
-class ZoneAdapter :
+class ZoneAdapter() :
     RecyclerView.Adapter<ZoneAdapter.ViewHolder>() {
 
     private val zoneList = mutableListOf<Zone>()
@@ -19,11 +21,19 @@ class ZoneAdapter :
         val nameTextView: TextView = view.findViewById(R.id.zone_name)
         val colorIndicator: View = view.findViewById(R.id.zone_color)
 
-        fun bind(zone: Zone, onZoneClick: (Zone) -> Unit) {
+        fun bind(zone: Zone, context: Context, onZoneClick: (Zone) -> Unit) {
             nameTextView.text = zone.name
             // Поменять на норм цвет!!!!!!!!!!!!
-            colorIndicator.setBackgroundColor(34223)
+            colorIndicator.setBackgroundColor(getColorForLevel(zone.level, context))
             itemView.setOnClickListener { onZoneClick(zone) }
+        }
+
+        private  fun getColorForLevel(level: Level, context: Context): Int {
+            return when (level) {
+                Level.LOW -> ContextCompat.getColor(context, R.color.low_level)
+                Level.MEDIUM -> ContextCompat.getColor(context, R.color.medium_level)
+                Level.HIGH -> ContextCompat.getColor(context, R.color.high_level)
+            }
         }
     }
 
@@ -42,7 +52,7 @@ class ZoneAdapter :
 
     override fun onBindViewHolder(holder: ZoneAdapter.ViewHolder, position: Int) {
         val zone = zoneList[position]
-        holder.bind(zone) {
+        holder.bind(zone, holder.itemView.context) {
             // Обработка клика на элемент
             onZoneClick?.invoke(it)
         }
