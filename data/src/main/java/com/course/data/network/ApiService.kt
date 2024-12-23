@@ -1,8 +1,8 @@
 package com.course.data.network
 
 
-import com.example.data.network.dto.IncidentDto
-import com.example.data.network.dto.ZoneDto
+import com.course.data.model.IncidentDto
+import com.course.data.model.ZoneDto
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT

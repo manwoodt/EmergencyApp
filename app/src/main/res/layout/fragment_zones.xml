@@ -6,7 +6,14 @@
     tools:context=".ZonesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="78dp">
+
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </FrameLayout>

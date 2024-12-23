@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">ex1</string>
-    <string name="Companies">companies\n</string>
+    <string name="app_name">EmergencyApp</string>
+    <string name="Zones">Zones\n</string>
 </resources>

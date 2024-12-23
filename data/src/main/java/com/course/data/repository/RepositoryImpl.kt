@@ -1,6 +1,7 @@
 package com.course.data.repository
 
 
+import com.course.data.mappers.toDomainModel
 import com.course.data.network.ApiService
 import com.course.domain.model.Incident
 import com.course.domain.model.Zone
@@ -47,27 +48,27 @@ class RepositoryImpl @Inject constructor(
 //    }
 
     override suspend fun getZonesList(): List<Zone> {
-        TODO("Not yet implemented")
+        return apiService.getZonesList().map { it.toDomainModel() }
     }
 
     override suspend fun getIncidentsList(): List<Incident> {
-        TODO("Not yet implemented")
+        throw NotImplementedError("Not yet implemented")
     }
 
     override suspend fun getIncidentsByZone(zoneId: Long): List<Incident> {
-        TODO("Not yet implemented")
+        throw NotImplementedError("Not yet implemented")
     }
 
     override suspend fun createIncident(incident: Incident) {
-        TODO("Not yet implemented")
+        throw NotImplementedError("Not yet implemented")
     }
 
     override suspend fun updateIncident(incident: Incident) {
-        TODO("Not yet implemented")
+        throw NotImplementedError("Not yet implemented")
     }
 
     override suspend fun calculateZoneByCoordinates(latitude: Double, longitude: Double): Long {
-        TODO("Not yet implemented")
+        throw NotImplementedError("Not yet implemented")
     }
 
 }

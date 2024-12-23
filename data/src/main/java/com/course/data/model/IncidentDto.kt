@@ -1,4 +1,4 @@
-package com.example.data.network.dto
+package com.course.data.model
 
 import com.course.domain.model.UNDEFINED_ZONE_ID
 import com.course.domain.model.enums.Status

@@ -2,10 +2,10 @@ package com.course.data.mappers
 
 import com.course.domain.model.Incident
 import com.course.domain.model.Zone
-import com.example.data.network.dto.IncidentDto
-import com.example.data.network.dto.ZoneDto
+import com.course.data.model.IncidentDto
+import com.course.data.model.ZoneDto
 
-fun Zone.toZoneDto() = ZoneDto(
+fun ZoneDto.toDomainModel() = Zone(
     zoneId = zoneId,
     name = name,
     phone = phone,
@@ -16,7 +16,7 @@ fun Zone.toZoneDto() = ZoneDto(
     level = level
 )
 
-fun Incident.toIncidentDto() = IncidentDto(
+fun IncidentDto.toDomainModel() = Incident(
     incidentId = incidentId,
     type = type,
     latitude = latitude,
