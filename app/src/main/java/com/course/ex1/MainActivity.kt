@@ -10,6 +10,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,15 +21,28 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+       val tabLayout: TabLayout = findViewById(R.id.tabLayout)
+
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
-        val toolbar: MaterialToolbar = findViewById(R.id.materialToolbar)
-        setSupportActionBar(toolbar)
-        toolbar.setupWithNavController(navController, appBarConfiguration)
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                tab?.let {
+                    when(it.position){
+                        0 -> navController.navigate(R.id.zonesFragment)
+                        1 -> navController.navigate(R.id.incidentFragment)
+                    }
+                }
+            }
 
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
+
+        tabLayout.addTab(tabLayout.newTab().setText("Zones"))
+        tabLayout.addTab(tabLayout.newTab().setText("Incidents"))
 
     }
 

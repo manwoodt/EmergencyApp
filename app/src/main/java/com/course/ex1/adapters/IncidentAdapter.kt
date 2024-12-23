@@ -16,6 +16,7 @@ class IncidentAdapter() :
     class ViewHolder(val binding: ItemIncidentBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(incident: Incident) {
+            binding.incidentId.text = incident.incidentId.toString()
             binding.incidentStatus.text = incident.status
             binding.incidentType.text = incident.type
         }

@@ -15,5 +15,12 @@
         android:id="@+id/btnDeclareIncident"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Declare an Incident" />
+        android:text="Declare an Incident"
+        android:layout_marginTop="16dp" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" />
 </LinearLayout>
