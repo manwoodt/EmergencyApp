@@ -56,11 +56,11 @@ class RepositoryImpl @Inject constructor(
     }
 
     override suspend fun getIncidentsList(): List<Incident> {
-        throw NotImplementedError("Not yet implemented")
+        return apiService.getIncidentsList().map { it.toDomainModel() }
     }
 
     override suspend fun getIncidentsByZone(zoneId: Long): List<Incident> {
-        throw NotImplementedError("Not yet implemented")
+        return apiService.getIncidentsByZone(zoneId).map { it.toDomainModel() }
     }
 
     override suspend fun createIncident(incident: Incident) {

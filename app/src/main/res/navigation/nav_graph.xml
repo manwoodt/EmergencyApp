@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/zonesFragment"
         android:name="com.course.ex1.ui.ZonesFragment"
-        android:label="fragment_zones"
+        android:label="Zones"
         tools:layout="@layout/fragment_zones" >
         <action
             android:id="@+id/action_zonesFragment_to_zoneDetailsFragment"
@@ -18,12 +18,18 @@
     <fragment
         android:id="@+id/zoneDetailsFragment"
         android:name="com.course.ex1.ui.ZoneDetailsFragment"
-        android:label="ZoneDetailsFragment"
+        android:label="ZoneDetails"
         tools:layout="@layout/fragment_zone_details">
         <argument
             android:name="zoneId"
             app:argType="long" />
     </fragment>
+
+    <fragment
+        android:id="@+id/incidentFragment"
+        android:name="com.course.ex1.ui.IncidentFragment"
+        android:label="Incidents"
+        tools:layout="@layout/fragment_incident"/>
 
 
 </navigation>

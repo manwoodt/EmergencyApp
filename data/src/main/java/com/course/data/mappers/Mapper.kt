@@ -1,41 +1,39 @@
 package com.course.data.mappers
 
 import com.course.domain.model.Incident
-import com.course.domain.model.Zone
 import com.course.data.model.IncidentDto
-import com.course.data.model.ZoneDto
-import com.course.domain.model.enums.Level
-
-fun ZoneDto.toDomainModel() = Zone(
-    zoneId = zoneId,
-    name = name,
-    phone = phone,
-    minLatitude = minLatitude,
-    maxLatitude = maxLatitude,
-    minLongitude = minLongitude,
-    maxLongitude = maxLongitude,
-    level = toColor(level)
-
-)
-
-    fun toColor(level: Level): Int {
-        return when (level) {
-            Level.LOW -> 0xFF00FF00.toInt() // Зеленый цвет
-            Level.MEDIUM -> 0xFFFFFF00.toInt() // Желтый цвет
-            Level.HIGH -> 0xFFFF0000.toInt() // Красный цвет
-        }
-    }
-
+import com.course.domain.model.enums.Status
+import com.course.domain.model.enums.Type
 
 fun IncidentDto.toDomainModel() = Incident(
     incidentId = incidentId,
-    type = type,
+    type = fromTypeToString(type),
     latitude = latitude,
     longitude = longitude,
     description = description,
-    status = status,
+    status = fromStatusToString(status),
     zoneId = zoneId
 )
+
+fun fromStatusToString(status: Status): String {
+    return when (status) {
+        Status.NEW ->  "New"
+        Status.IN_PROGRESS -> "In progress"
+        Status.CLOSED -> "Closed"
+    }
+}
+
+fun fromTypeToString(type: Type):String{
+    return when(type) {
+        Type.FIRE -> "Fire"
+        Type.FLOOD -> "Flood"
+        Type.NATURAL_DISASTER -> "Natural disaster"
+        Type.GASLEAK -> "Gas leak"
+        Type.OTHER -> "Other"
+    }
+}
+
+
 
 //fun ResultRow.toZone(): Zone = Zone(
 //    zoneId = this[ZonesTable.zoneId],

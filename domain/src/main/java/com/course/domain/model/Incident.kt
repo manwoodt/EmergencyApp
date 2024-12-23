@@ -8,10 +8,10 @@ const val UNDEFINED_ZONE_ID = 0L
 
 data class Incident(
     val incidentId: Long? = null,
-    val type: Type,
+    val type: String,
     val latitude: Double,
     val longitude: Double,
     val description: String,
-    val status: Status,
+    val status: String,
     val zoneId: Long? = UNDEFINED_ZONE_ID
 )
