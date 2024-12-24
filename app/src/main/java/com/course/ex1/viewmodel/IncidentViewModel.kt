@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.course.domain.model.Incident
 import com.course.domain.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,6 +27,13 @@ class IncidentViewModel @Inject constructor(
         viewModelScope.launch {
             val result = repository.getIncidentsList()
             _incidents.postValue(result)
+        }
+    }
+
+     fun addIncident(newIncident: Incident){
+        viewModelScope.launch {
+            repository.createIncident(newIncident)
+            loadIncidents()
         }
     }
 

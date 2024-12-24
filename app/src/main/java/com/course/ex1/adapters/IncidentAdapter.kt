@@ -18,7 +18,7 @@ class IncidentAdapter( private val onIncidentClick: (Incident) -> Unit) :
         fun bind(incident: Incident, onIncidentClick: (Incident) -> Unit) {
             binding.incidentId.text = incident.incidentId.toString()
             binding.incidentStatus.text = incident.status
-            binding.incidentType.text = incident.type
+            binding.incidentType.text = incident.type.toString()
             itemView.setOnClickListener { onIncidentClick(incident) }
         }
     }
