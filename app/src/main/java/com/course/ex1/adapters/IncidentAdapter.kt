@@ -8,17 +8,18 @@ import com.course.domain.model.Zone
 import com.course.ex1.databinding.ItemIncidentBinding
 import com.course.ex1.databinding.ItemZoneBinding
 
-class IncidentAdapter() :
+class IncidentAdapter( private val onIncidentClick: (Incident) -> Unit) :
     RecyclerView.Adapter<IncidentAdapter.ViewHolder>() {
 
     private val incidentsList = mutableListOf<Incident>()
 
     class ViewHolder(val binding: ItemIncidentBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(incident: Incident) {
+        fun bind(incident: Incident, onIncidentClick: (Incident) -> Unit) {
             binding.incidentId.text = incident.incidentId.toString()
             binding.incidentStatus.text = incident.status
             binding.incidentType.text = incident.type
+            itemView.setOnClickListener { onIncidentClick(incident) }
         }
     }
 
@@ -35,7 +36,9 @@ class IncidentAdapter() :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val incident = incidentsList[position]
-        holder.bind(incident)
+        holder.bind(incident){
+            onIncidentClick.invoke(it)
+        }
     }
 
     override fun getItemCount(): Int = incidentsList.size
