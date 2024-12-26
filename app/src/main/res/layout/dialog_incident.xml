@@ -5,35 +5,63 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/black"
+        android:text="@string/type" />
 
     <Spinner
         android:id="@+id/incidentTypeSpinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_marginBottom="16dp" />
 
-    <EditText
-        android:id="@+id/etStatus"
+    <TextView
+        android:id="@+id/dialogStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Incident Status" />
+        android:layout_marginBottom="8dp"
+        android:textSize="18sp"
+        android:hint="@string/incident_status"
+        android:textColor="@color/black" />
 
     <EditText
-        android:id="@+id/etDescription"
+        android:id="@+id/dialogDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Description" />
+        android:hint="@string/description"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/black"
+        android:text="@string/coordinates" />
 
     <EditText
-        android:id="@+id/etLatitude"
+        android:id="@+id/dialogLatitude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Latitude" />
+        android:hint="@string/latitudeHint"
+        android:textColor="@color/black"
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="8dp" />
 
     <EditText
-        android:id="@+id/etLongitude"
+        android:id="@+id/dialogLongitude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Longitude" />
+        android:hint="@string/longitudeHint"
+        android:textColor="@color/black"
+        android:inputType="numberDecimal"
+    android:layout_marginBottom="16dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,22 +71,27 @@
 
         <Button
             android:id="@+id/btnCancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cancel" />
+            android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginEnd="8dp"
+        android:text="@string/cancel" />
 
         <Button
             android:id="@+id/btnDeclare"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Declare"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:text="@string/declare"
             android:visibility="gone" />
 
         <Button
             android:id="@+id/btnClose"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Close"
+            android:layout_weight="1"
+            android:text="@string/close"
             android:visibility="gone" />
     </LinearLayout>
 </LinearLayout>

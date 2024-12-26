@@ -3,4 +3,12 @@
     <string name="Zones">Zones\n</string>
     <string name="coordinates">Coordinates</string>
     <string name="emergency_phone_number">Emergency phone number:</string>
+    <string name="close">Close</string>
+    <string name="declare">Declare</string>
+    <string name="cancel">Cancel</string>
+    <string name="longitudeHint">Longitude</string>
+    <string name="latitudeHint">Latitude</string>
+    <string name="description">Description</string>
+    <string name="incident_status">Incident Status :</string>
+    <string name="type">Type</string>
 </resources>

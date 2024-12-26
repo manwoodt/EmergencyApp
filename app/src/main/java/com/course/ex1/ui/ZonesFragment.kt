@@ -14,7 +14,8 @@ import com.course.ex1.viewmodel.ZonesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ZonesFragment : Fragment() {
+class
+ZonesFragment : Fragment() {
 
     private var _binding: FragmentZonesBinding? = null
     private val binding get() = _binding!!

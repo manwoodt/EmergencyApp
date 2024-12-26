@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.course.domain.model.Incident
 import com.course.domain.model.UNDEFINED_ZONE_ID
 import com.course.domain.model.enums.IncidentType
+import com.course.domain.model.enums.Status
 import com.course.ex1.R
 import com.course.ex1.adapters.IncidentAdapter
 import com.course.ex1.adapters.ZoneAdapter
@@ -75,42 +76,22 @@ class IncidentFragment : Fragment() {
             .setView(binding.root)
 
 
-     //   val types = IncidentType.values().map { it.name }.toList()
-
         ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
             IncidentType.values()
         ).also { adapter ->
-            // добавить
+            // добави
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.incidentTypeSpinner.adapter = adapter
         }
 
         if (isCreating) {
-            binding.etStatus.setText("NEW")
+            binding.dialogStatus.text = "NEW"
             binding.btnDeclare.visibility = View.VISIBLE
             binding.btnClose.visibility = View.GONE
         } else {
-//            val currentType = incident?.type
-//            val position = types.indexOf(currentType.name)
-
-            val incidentType = incident?.type
-            val position = IncidentType.values().indexOf(incidentType)
-            binding.incidentTypeSpinner.setSelection(position)
-
-            binding.etStatus.setText(incident?.status)
-            binding.etDescription.setText(incident?.description)
-            binding.etLatitude.setText(incident?.latitude.toString())
-            binding.etLongitude.setText(incident?.longitude.toString())
-
-            binding.incidentTypeSpinner.isEnabled = false
-            binding.etStatus.isEnabled = false
-            binding.etDescription.isEnabled = false
-            binding.etLatitude.isEnabled = false
-            binding.etLongitude.isEnabled = false
-
-            binding.btnDeclare.visibility = View.GONE
-            binding.btnClose.visibility = View.VISIBLE
+            showIncidentDetails(binding,incident)
         }
 
         val dialog = dialogBuilder.create()
@@ -125,16 +106,16 @@ class IncidentFragment : Fragment() {
             val incidentType = try {
                 IncidentType.valueOf(selectedTypeString)
             } catch (e: IllegalArgumentException) {
-                IncidentType.FIRE // значение по умолчанию
+                IncidentType.OTHER // значение по умолчанию
             }
 
             val newIncident = Incident(
                 incidentId = null,
                 type = incidentType,
-                status = binding.etStatus.text.toString(),
-                description = binding.etDescription.text.toString(),
-                latitude = binding.etLatitude.text.toString().toDoubleOrNull() ?: 0.0,
-                longitude = binding.etLongitude.text.toString().toDoubleOrNull() ?: 0.0
+                status = Status.NEW.toString(),
+                description = binding.dialogDescription.text.toString(),
+                latitude = binding.dialogLatitude.text.toString().toDoubleOrNull() ?: 0.0,
+                longitude = binding.dialogLongitude.text.toString().toDoubleOrNull() ?: 0.0
             )
             viewModel.addIncident(newIncident)
             dialog.dismiss()
@@ -149,6 +130,29 @@ class IncidentFragment : Fragment() {
         }
 
         dialog.show()
+    }
+
+    private fun showIncidentDetails(binding:DialogIncidentBinding, incident: Incident?){
+        if (incident != null){
+            val incidentType = incident.type
+            val position = IncidentType.values().indexOf(incidentType)
+            binding.incidentTypeSpinner.setSelection(position)
+
+            binding.dialogStatus.text = "Incident status : \"${incident.status}\""
+            binding.dialogDescription.setText(incident.description)
+            binding.dialogLatitude.setText(incident.latitude.toString())
+            binding.dialogLongitude.setText(incident.longitude.toString())
+
+            binding.incidentTypeSpinner.isEnabled = false
+            binding.dialogStatus.isEnabled = false
+            binding.dialogDescription.isEnabled = false
+            binding.dialogLatitude.isEnabled = false
+            binding.dialogLongitude.isEnabled = false
+
+            binding.btnDeclare.visibility = View.GONE
+            binding.btnCancel.visibility = View.GONE
+            binding.btnClose.visibility = View.VISIBLE
+        }
     }
 
 
