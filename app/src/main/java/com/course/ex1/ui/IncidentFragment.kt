@@ -81,7 +81,6 @@ class IncidentFragment : Fragment() {
             android.R.layout.simple_spinner_item,
             IncidentType.values()
         ).also { adapter ->
-            // добави
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.incidentTypeSpinner.adapter = adapter
         }
@@ -96,27 +95,8 @@ class IncidentFragment : Fragment() {
 
         val dialog = dialogBuilder.create()
 
-        // Обработчики кнопок
         binding.btnDeclare.setOnClickListener {
-
-//            val selectedTypeString = binding.incidentTypeSpinner.selectedItem.toString()
-//            val incidentType = IncidentType.valueOf(selectedTypeString)
-
-            val selectedTypeString = binding.incidentTypeSpinner.selectedItem.toString()
-            val incidentType = try {
-                IncidentType.valueOf(selectedTypeString)
-            } catch (e: IllegalArgumentException) {
-                IncidentType.OTHER // значение по умолчанию
-            }
-
-            val newIncident = Incident(
-                incidentId = null,
-                type = incidentType,
-                status = Status.NEW.toString(),
-                description = binding.dialogDescription.text.toString(),
-                latitude = binding.dialogLatitude.text.toString().toDoubleOrNull() ?: 0.0,
-                longitude = binding.dialogLongitude.text.toString().toDoubleOrNull() ?: 0.0
-            )
+            val newIncident = createIncident(binding)
             viewModel.addIncident(newIncident)
             dialog.dismiss()
         }
@@ -130,6 +110,21 @@ class IncidentFragment : Fragment() {
         }
 
         dialog.show()
+    }
+
+    private fun createIncident(binding:DialogIncidentBinding):Incident{
+        val selectedTypeString = binding.incidentTypeSpinner.selectedItem.toString()
+        val incidentType = IncidentType.valueOf(selectedTypeString)
+
+      return  Incident(
+            incidentId = viewModel.incidents.value?.size?.toLong()?.plus(1),
+            type = incidentType,
+            status = Status.NEW,
+            description = binding.dialogDescription.text.toString(),
+            latitude = binding.dialogLatitude.text.toString().toDoubleOrNull() ?: 0.0,
+            longitude = binding.dialogLongitude.text.toString().toDoubleOrNull() ?: 0.0,
+            zoneId = 0
+        )
     }
 
     private fun showIncidentDetails(binding:DialogIncidentBinding, incident: Incident?){
