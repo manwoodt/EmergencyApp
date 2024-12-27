@@ -44,16 +44,20 @@ class IncidentViewModel @Inject constructor(
             } finally {
                 _isLoading.value = false
             }
-
         }
     }
 
-    fun addIncident(newIncident: Incident) {
+    fun addIncident(newIncident: Incident)  {
         viewModelScope.launch {
-            repository.createIncident(newIncident)
-            loadIncidents()
+            try {
+                repository.createIncident(newIncident)
+                loadIncidents()
+            } catch (e: Exception) {
+                _errorMessage.value = "An error occurred: ${e.message}"
+            }
         }
     }
+
 
 
 }

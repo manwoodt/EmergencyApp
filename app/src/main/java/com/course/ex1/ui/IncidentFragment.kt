@@ -9,29 +9,21 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.compose.material3.AlertDialog
-import androidx.core.content.ContentProviderCompat
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.course.domain.model.Incident
-import com.course.domain.model.UNDEFINED_ZONE_ID
 import com.course.domain.model.enums.IncidentType
 import com.course.domain.model.enums.Status
-import com.course.ex1.R
 import com.course.ex1.adapters.IncidentAdapter
-import com.course.ex1.adapters.ZoneAdapter
 import com.course.ex1.databinding.DialogIncidentBinding
 import com.course.ex1.databinding.FragmentIncidentBinding
-import com.course.ex1.databinding.FragmentZonesBinding
 import com.course.ex1.viewmodel.IncidentViewModel
-import com.course.ex1.viewmodel.ZonesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class IncidentFragment : Fragment() {
 
-    private var _binding: FragmentIncidentBinding? = null
-    private val binding get() = _binding!!
+    private var _bindingIncident: FragmentIncidentBinding? = null
+    private val bindingIncident get() = _bindingIncident!!
 
     private val viewModel: IncidentViewModel by viewModels()
     private lateinit var adapter: IncidentAdapter
@@ -40,14 +32,29 @@ class IncidentFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentIncidentBinding.inflate(inflater, container, false)
+        _bindingIncident = FragmentIncidentBinding.inflate(inflater, container, false)
 
         setupRecyclerView()
+        setupViewModel()
 
-        binding.btnDeclareIncident.setOnClickListener {
+        bindingIncident.btnDeclareIncident.setOnClickListener {
             showIncidentDialog(isCreating = true)
         }
 
+        return bindingIncident.root
+    }
+
+    private fun setupRecyclerView() {
+        adapter = IncidentAdapter { incident ->
+            showIncidentDialog(incident,isCreating = false)
+        }
+
+        bindingIncident.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        bindingIncident.recyclerView.adapter = adapter
+
+    }
+
+    private fun setupViewModel(){
         viewModel.incidents.observe(viewLifecycleOwner) { incidents ->
             adapter.setIncidents(incidents)
         }
@@ -60,35 +67,18 @@ class IncidentFragment : Fragment() {
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) {
-                binding.progressBar.visibility = View.VISIBLE
+                bindingIncident.progressBar.visibility = View.VISIBLE
             } else {
-                binding.progressBar.visibility = View.GONE
+                bindingIncident.progressBar.visibility = View.GONE
             }
         }
-
-        return binding.root
-    }
-
-    private fun setupRecyclerView() {
-        adapter = IncidentAdapter { incident ->
-            showIncidentDialog(incident,isCreating = false)
-        }
-
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = adapter
-
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
 
-    fun showIncidentDialog(incident: Incident? = null, isCreating: Boolean ) {
-        val binding = DialogIncidentBinding.inflate(LayoutInflater.from(requireContext()))
+    private fun showIncidentDialog(incident: Incident? = null, isCreating: Boolean ) {
+        val bindingDialog = DialogIncidentBinding.inflate(LayoutInflater.from(requireContext()))
         val dialogBuilder = AlertDialog.Builder(requireContext())
-            .setView(binding.root)
+            .setView(bindingDialog.root)
 
 
         ArrayAdapter(
@@ -97,30 +87,30 @@ class IncidentFragment : Fragment() {
             IncidentType.values()
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.incidentTypeSpinner.adapter = adapter
+            bindingDialog.incidentTypeSpinner.adapter = adapter
         }
 
         if (isCreating) {
-            binding.dialogStatus.text = "NEW"
-            binding.btnDeclare.visibility = View.VISIBLE
-            binding.btnClose.visibility = View.GONE
+            bindingDialog.dialogStatus.text = "NEW"
+            bindingDialog.btnDeclare.visibility = View.VISIBLE
+            bindingDialog.btnClose.visibility = View.GONE
         } else {
-            showIncidentDetails(binding,incident)
+            showIncidentDetails(bindingDialog,incident)
         }
 
         val dialog = dialogBuilder.create()
 
-        binding.btnDeclare.setOnClickListener {
-            val newIncident = createIncident(binding)
+        bindingDialog.btnDeclare.setOnClickListener {
+            val newIncident = createIncident(bindingDialog)
             viewModel.addIncident(newIncident)
             dialog.dismiss()
         }
 
-        binding.btnCancel.setOnClickListener {
+        bindingDialog.btnCancel.setOnClickListener {
             dialog.dismiss()
         }
 
-        binding.btnClose.setOnClickListener {
+        bindingDialog.btnClose.setOnClickListener {
             dialog.dismiss()
         }
 
@@ -165,5 +155,8 @@ class IncidentFragment : Fragment() {
         }
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _bindingIncident = null
+    }
 }
