@@ -2,6 +2,8 @@ package com.course.data.repository
 
 
 import com.course.data.mappers.toDomainModel
+import com.course.data.mappers.toDto
+import com.course.data.model.IncidentDto
 import com.course.data.network.ApiService
 import com.course.domain.model.Incident
 import com.course.domain.model.Zone
@@ -64,7 +66,7 @@ class RepositoryImpl @Inject constructor(
     }
 
     override suspend fun createIncident(incident: Incident) {
-        throw NotImplementedError("Not yet implemented")
+        return apiService.createIncident(incident.toDto())
     }
 
     override suspend fun updateIncident(incident: Incident) {

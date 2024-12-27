@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import com.course.ex1.R
 import com.course.ex1.databinding.FragmentZoneDetailsBinding
@@ -33,8 +34,6 @@ class ZoneDetailsFragment : Fragment() {
 
         viewModel.loadZoneDetails(zoneId)
 
-
-
         viewModel.zone.observe(viewLifecycleOwner){zone->
             val coordinates =  "${zone.minLatitude}° : ${zone.maxLatitude}°, ${zone.minLongitude}° : ${zone.maxLongitude}°"
 
@@ -42,6 +41,12 @@ class ZoneDetailsFragment : Fragment() {
             binding.zonePhone.text = zone.phone
             binding.coordinatesValue.text = coordinates
             binding.zoneCard.setBackgroundColor(zone.level)
+        }
+
+        viewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+            }
         }
 
         return binding.root
